@@ -2,8 +2,22 @@ from django.db import models
 from datetime import date
 
 
+class Genre(models.Model):
+    genre = models.CharField(max_length=50)
+    description = models.TextField('Описание', blank=True)
+    photo = models.ImageField(upload_to='photos', verbose_name='Фотография', blank=True, null=True)
+
+    class Meta:
+        verbose_name = 'Жанр'
+        verbose_name_plural = 'Жанры'
+
+    def __str__(self):
+        return self.genre
+
+
 class Film(models.Model):
     name = models.CharField('Название', max_length=50)
+    genres = models.ManyToManyField('Genre')
     release_date = models.DateField('Дата релиза')
     photo = models.ImageField(upload_to='photos', verbose_name='Фотография', blank=True, null=True)
     description = models.TextField('Описание')
@@ -25,6 +39,7 @@ class Director(models.Model):
     date_of_birth = models.DateField('Дата рождения', default=date.today(), blank=False)
     sex = models.CharField('Пол', choices=(('Мужчина', 'Мужчина'), ('Женщина', 'Женщина')),
                            max_length=7, default='Мужчина')
+    biography = models.TextField('Биография', blank=True)
     photo = models.ImageField('Фотография', upload_to='photos', blank=True, null=True)
 
     class Meta:
@@ -42,6 +57,7 @@ class Actor(models.Model):
     date_of_birth = models.DateField('Дата рождения', default=date.today(), blank=False)
     sex = models.CharField('Пол', choices=(('Мужчина', 'Мужчина'), ('Женщина', 'Женщина')),
                            max_length=7, default='Мужчина')
+    biography = models.TextField('Биография', blank=True)
     photo = models.ImageField('Фотография', upload_to='photos', blank=True, null=True)
 
     class Meta:

@@ -33,29 +33,25 @@
             </div>
         </div>
         <div class="col-md-10">
-            <h1>{{ title }}</h1>
-            {% for item in films %}
+            <h1>{{ film }}</h1>
             <div class="card" style="width: 50rem;">
-                <img src="{{ item.photo.url }}" class="card-img-top" alt="...">
+                {% if film.photo %}
+                <img src="{{ film.photo.url }}" class="card-img-top" alt="...">
+                {% endif %}
                 <div class="card-body">
-                    <h2 class="card-title" style="">{{ item.name }}</h2>
+                    <h2 class="card-title" style="">{{ film }}</h2>
+                    <p class="card-text">{{ film.description }}</p>
                 </div>
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Режиссёр: {{ item.director }}</li>
-                    <li class="list-group-item">Дата выхода: {{ item.release_date }}</li>
-                    <li class="list-group-item">Жанр:
-                        {% for i in item.genres.all %}
+                    <li class="list-group-item">Дата релиза: {{ film.release_date }}</li>
+                    <li class="list-group-item">Режиссёр: {{ film.director }}</li>
+                    <li class="list-group-item">Актёры:
+                        {% for i in film.actors.all %}
                         {{ i }}
                         {% endfor %}
                     </li>
                 </ul>
-                <div class="card-body">
-                    <div class="d-grid gap-2 col-4">
-                        <a href="/{{ item.id }}/" class="btn btn-primary">Смотреть больше</a>
-                    </div>
-                </div>
             </div>
-            {% endfor %}
         </div>
     </div>
 </div>
